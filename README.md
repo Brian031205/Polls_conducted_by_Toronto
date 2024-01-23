@@ -15,5 +15,5 @@ output/paper contains the files used to generate the paper, including the Quarto
 script contains the R scripts used to simulate, download, and clean data.
 
 
-
+## LLMs
 I did not use LLMs.
