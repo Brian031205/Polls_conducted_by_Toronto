@@ -3,10 +3,11 @@ title: "Exploring Public Engagement and Preferences: A Comprehensive Analysis of
 author: "Bolin Shen"
 date: " January 21, 2024"
 abstract: "This paper investigates the dynamics of public engagement in Toronto through annual polls conducted by the City Clerk's Office from 2015 to 2023. Focusing on types of topics regulated by the city by-law, including Front Yard Parking, Traffic calming, Permit Parking Removal, and others, the study aims to delve into the public engagement and community preferences. The findings of the paper suggest that public participation is of importance for policymakers and the Front Yard Parking is a key and prominent concern among residents."
-thanks: "Code and data supporting this analysis is available at: https://github.com/christina-wei/INF3014-1-Covid-Clinics.git"
+thanks: "Code and data supporting this analysis is available at: https://github.com/Brian031205/Polls_conducted_by_Toronto"
 format: pdf
 toc: true
 number-sections: true
+bibliography: ref.bib
 ---
 
 
@@ -80,9 +81,7 @@ ggplot(mapping = aes(x = application_for, fill = response_rate_met), data = clea
 
 The bar chart in Figure 2 demonstrates the visualization of poll results for different types of applications. In the case of Front Yard Parking, a significant majority, approximately 480 out of 500 ballots, favored it. Similarly, for Appeal-Front Yard Parking, about 170 out of 200 ballots were in favor.
 
-On the contrary, for the type "permit parking," more than half of the total returned ballots expressed opposition, making it the type with the most significant number of opposing votes. Additionally, in the case of traffic calming, more than half of the total ballots did not meet the requirement, indicating a notable lack of support for this particular type.
-
-Furthermore, some other types of applications showed minimal significance, with a minimum number of ballots. These include Business Improvement Area, traffic calming-island, traffic calming safety zone and others.
+On the contrary, for the type "permit parking," more than half of the total returned ballots expressed opposition, making it the type with the most significant number of opposing votes. Additionally, in the case of traffic calming, more than half of the total ballots did not meet the requirement, indicating a notable lack of support for this particular type. Furthermore, some other types of applications showed minimal significance, with a minimum number of ballots. These include Business Improvement Area, traffic calming-island, traffic calming safety zone and others.
 ```{r}
 #| echo: false
 #| message: false
