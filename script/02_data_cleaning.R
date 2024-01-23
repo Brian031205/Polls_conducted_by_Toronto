@@ -1,6 +1,9 @@
 #### Preamble ####
-# Purpose: Cleans the raw 
+# Purpose: Cleans the raw poll data
 # Author: Bolin Shen
+# Date: 21 January 2024
+# Contact: bolin.shen@mail.utoronto.ca
+# License: MIT
 
 #### Workspace setup ####
 library(tidyverse)
@@ -23,10 +26,10 @@ raw_poll_data <-
 data_year = as.Date(data$OPEN_DATE, format = "%Y-%m-%d")|> format("%Y")
 cleaned_poll_data = raw_poll_data |> mutate(OPEN_DATE_YEAR = data_year)
 
-# creating a new column to store the value of number of ballots returned / number of ballots distributed.
+# creating a new column to store the value of ballots return rate
 cleaned_poll_data$ballot_return_rate <- round((cleaned_poll_data$BALLOTS_CAST / cleaned_poll_data$BALLOTS_DISTRIBUTED), 4)
-
-#
+ 
+# creating a new column to store the value of ballots in favour rate
 cleaned_poll_data$ballot_in_favour_rate <- round((cleaned_poll_data$BALLOTS_IN_FAVOUR / (cleaned_poll_data$BALLOTS_OPPOSED + cleaned_poll_data$BALLOTS_IN_FAVOUR)), 4)
 
 
@@ -48,10 +51,17 @@ cleaned_poll_data <-
     poll_result,
     open_date,
     ballot_return_rate,
-    ballot_in_favour_rate
+    ballot_in_favour_rate,
   )
 
-
+# summarize data
+summarized_poll_data <- 
+  cleaned_poll_data |> 
+  select(
+    application_for,
+    open_date,
+    poll_result
+  )
 
 
 # save cleaned polls data #
@@ -59,6 +69,14 @@ write_csv(
   x = cleaned_poll_data,
   file = "input/data/cleaned_poll_data.csv"
 )
+
+# save summarized poll data #
+
+write_csv(
+  x = summarized_poll_data,
+  file = "input/data/summarized_poll_data.csv"
+)
+
 
 
 

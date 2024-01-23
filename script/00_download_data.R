@@ -1,6 +1,9 @@
 #### Preamble ####
 # Purpose: Download data of polls conducted by the city across Toronto from "https://open.toronto.ca/dataset/polls-conducted-by-the-city/"
 # Author: Bolin Shen
+# Date: 21 January 2024
+# Contact: bolin.shen@mail.utoronto.ca
+# License: MIT
 
 #### Workspace setup ####
 library(opendatatoronto)

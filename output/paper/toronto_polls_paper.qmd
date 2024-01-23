@@ -1,0 +1,160 @@
+---
+title: "Exploring Public Engagement and Preferences: A Comprehensive Analysis of City Polls in Toronto (2015-2023)"
+author: "Bolin Shen"
+date: " January 21, 2024"
+abstract: "This paper investigates the dynamics of public engagement in Toronto through annual polls conducted by the City Clerk's Office from 2015 to 2023. Focusing on types of topics regulated by the city by-law, including Front Yard Parking, Traffic calming, Permit Parking Removal, and others, the study aims to delve into the public engagement and community preferences. The findings of the paper suggest that public participation is of importance for policymakers and the Front Yard Parking is a key and prominent concern among residents."
+thanks: "Code and data supporting this analysis is available at: https://github.com/christina-wei/INF3014-1-Covid-Clinics.git"
+format: pdf
+toc: true
+number-sections: true
+---
+
+
+```{r}
+#| message: false
+#| echo: false
+
+#### Workspace set-up ####
+
+## Load packages
+library(tidyverse)
+library(knitr)
+library(janitor)
+library(here)
+library(dplyr)
+
+#### Read in cleaned data ####
+
+cleaned_poll_data = read_csv(
+  file = here("input/data/cleaned_poll_data.csv"),
+  show_col_types = FALSE
+)
+
+summarized_poll_data = read_csv(
+  file = here("input/data/summarized_poll_data.csv"),
+  show_col_types = FALSE
+)
+
+
+```
+{{< pagebreak >}}
+## Introduction
+The City Clerk's Office is tasked with administering polls for City divisions, seeking the viewpoints of residents and businesses on diverse subjects governed by City by-law (Chapter 190). The specific topics covered by city polls include Front Yard Parking, Boulevard Café, Boulevard improvement area, Traffic calming, Traffic Calming-Island, Traffic calming safety zone, Permit parking, Permit parking removal, Commercial Boulevard Parking, Appeal-Front Yard Parking, Proposed Business improvement. Conducting polls on these types of topics aims to involve the community in decision-making, address local concerns, and ensure that regulations satisfy with the needs and preferences of the residents and businesses in the City of Toronto.
+
+According to the “Polls Regarding Changes in a Neighborhood” on the website of city government, the City of Toronto annually conducts surveys to evaluate the opinions of property owners, residents, and businesses potentially impacted by neighborhood changes related to Off-street parking (including front yard parking and commercial boulevard parking), Permit parking, and others. Whenever there is a proposal application, the city conducts a poll among individuals in the affected area. To be considered favorable, a poll must meet predefined requirements outlined in specific by-laws or city policies. A positive poll result allows the application to progress through the approval process, and the final approval may need to be obtained from the City Council, depending on the type of poll conducted.
+
+The research question of this paper is “What preferences can be identified in public engagement based on the analysis of annual city polls from 2015 to 2023?” Through analyzing the city poll data from 2015 to 2023 provided by the website of opendatatoronto, I visualized them in one table, two bar charts and two polygons. Table 1 shows a summarized sample of poll data from the year 2015. Figure 1 shows the different numbers of ballots returned in response to various types. Figure 2 demonstrates poll results for different types of applications. Figure 3 and Figure 4 are particularly on the topic of traffic calming. Figure 3 reveals the changing trend of ballot response rate from 2015 to 2023 meeting the requirement, while Figure 4 depicts the trend of ballot response rate not met the requirement through the years.
+
+## Data
+Table 1 suggests a summarized sample of poll data from the year 2015, showing the number of ballots in favor of various topics. For "Front Yard Parking," there are 5 out of 9 ballots in favor. Regarding "Traffic Calming," 2 out of the 9 ballots did not meet the requirement. "Appeal-Front Yard Parking" received 1 ballot in favor. "Boulevard Café" has 1 ballot in favor. The table provides a special overview of the preferences and responses for these specific topics during the 2015 poll.
+
+
+
+```{r}
+#| echo: false
+#| message: false
+
+# Create a table of sample of summarized poll data
+
+head(summarized_poll_data, 9) |>
+  kable(
+    col.names = c("Application For", "Open Date", "Poll Result"),
+    caption = "Sample of summarized poll data"
+  )
+```
+
+The bar chart in Figure 1 shows the number of ballots returned in response to various types from 2015 to 2023. The chart indicates that, overall, most types received enough ballots that met the required response. Specifically, Front Yard Parking and Appeal-Front Yard Parking had the highest number of returned ballots, nearly 500 and almost 200, respectively, both meeting the requirement almost entirely.
+
+On the contrary, the type "traffic calming" had the largest number of ballots that did not meet the required response, with approximately 100 falling short, which will be further proved by Figure 2. Additionally, several other types, including Business Improvement Area, Commercial Boulevard Parking, and Proposed Business Improvement Area, had little impact, suggesting limited influence on the required response.  
+
+```{r}
+#| echo: false
+#| message: false
+
+# Create a bar plot, x-axis is the types of application for and y-axis is the number of polls. The red bar indicates response rate not met and the blue bar indicates response rate met.
+
+ggplot(mapping = aes(x = application_for, fill = response_rate_met), data = cleaned_poll_data) + labs(caption = "Figure 1") +
+  scale_fill_discrete(name = "response rate met") + ylab("Number of polls") + xlab("Application for") + geom_bar() + 
+  theme(axis.text.x= element_text(angle= 50, vjust=0.8, hjust= 0.8))
+```
+
+The bar chart in Figure 2 demonstrates the visualization of poll results for different types of applications. In the case of Front Yard Parking, a significant majority, approximately 480 out of 500 ballots, favored it. Similarly, for Appeal-Front Yard Parking, about 170 out of 200 ballots were in favor.
+
+On the contrary, for the type "permit parking," more than half of the total returned ballots expressed opposition, making it the type with the most significant number of opposing votes. Additionally, in the case of traffic calming, more than half of the total ballots did not meet the requirement, indicating a notable lack of support for this particular type.
+
+Furthermore, some other types of applications showed minimal significance, with a minimum number of ballots. These include Business Improvement Area, traffic calming-island, traffic calming safety zone and others.
+```{r}
+#| echo: false
+#| message: false
+
+# Create a bar plot, x-axis is the types of application for and y-axis is the number of polls. The red bar indicates response rate not met and the blue bar indicates response rate met.
+
+ggplot(mapping = aes(x = application_for, fill = poll_result), data = cleaned_poll_data) + geom_bar() + labs(caption = "Figure 2") + theme(axis.text.x= element_text(angle= 50, vjust=0.8, hjust= 0.8)) + xlab("Application for") + ylab("Number of polls") + 
+  scale_fill_discrete(name = "Poll result")
+```
+
+Due to the substantial number of ballots not meeting the response rate for traffic calming as shown in Figure 1 and Figure 2, I conducted a special analysis and made two visual schetches to illustrate the changes in the ballot response rates over the years. Figure 3 shows the changes in the ballot response rate for traffic calming proposals that met the requirement, while Figure 4 illustrates the changes in the ballot response rate for traffic calming proposals that did not meet the requirement. It is also observed that the average ballot response rate meeting the requirement in Figure 3 is higher than that not met the requirement in Figure 4. These visualizations aim to provide a more detailed understanding of the dynamics and trends associated with public engagement on the topic of traffic calming from 2015 to 2023.
+```{r}
+#| echo: false
+#| message: false
+
+# Calculate the median of ballots distributed
+
+median <- median(cleaned_poll_data$ballots_distributed)
+
+
+# Filter the data by response rate not met
+response_rate_not_met <- cleaned_poll_data[cleaned_poll_data$response_rate_met == "No", ]
+
+# Filter the data by application for, extract the rows that has "Traffic Calming" as its application
+traffic_calming <- response_rate_not_met[response_rate_not_met$application_for == "Traffic Calming", ]
+
+# Create a line plot, x-axis is the date and the y-axis is the ballot return rate.
+traffic_calming[traffic_calming$ballots_distributed > median,] |>
+  ggplot(aes(x = open_date, y = ballot_return_rate)) +
+  labs(x = "Date",
+       y = "Ballot return rate",
+       caption = "Figure 3: Ballot response rate from 2015 to 2023 meet the requirement.") +
+  geom_line() + 
+  theme_minimal()
+
+# Filter the data by response rate met
+response_rate_met <- cleaned_poll_data[cleaned_poll_data$response_rate_met == "Yes", ]
+
+# Filter the data by application for, extract the rows that has "Traffic Calming" as its application
+traffic_calming <- response_rate_met[response_rate_met$application_for == "Traffic Calming", ]
+
+# Create a line plot, x-axis is the date and the y-axis is the ballot return rate
+traffic_calming[traffic_calming$ballots_distributed > median,] |>
+  ggplot(aes(x = open_date, y = ballot_return_rate)) +
+  labs(x = "Date",
+       y = "Ballot return rate",
+       caption = "Figure 4: Ballot response rate from 2015 to 2023 not meet the requirement.") +
+  geom_line() + 
+  theme_minimal()
+```
+## Discussion
+
+The analysis of the above two bar charts depicting the number of ballots returned and poll results for various types of applications from 2015 to 2023 reveals patterns in public engagement and community preferences. Notably, Front Yard Parking and Appeal-Front Yard Parking consistently received the highest number of returned ballots, meeting the required response almost entirely. Conversely, "traffic calming" emerged as the type with the largest number of ballots that fell short of the required response, indicating potential challenges in getting public support for this application. Other types, such as Business Improvement Area, Commercial Boulevard Parking, and Proposed Business Improvement Area, demonstrated limited impact on the required response, suggesting reduced influence.
+
+Examining poll results in Figure 2 provides further insights, with Front Yard Parking receiving overwhelming support, as approximately 96 percent ballots favored it.  Similarly, Appeal-Front Yard Parking obtained about 85 percent ballots in favor.  Conversely, "permit parking" emerged as the type with the most significant number of opposing votes, as more than half of the total returned ballots expressed opposition.  Furthermore, traffic calming faced a notable level of resistance or disapproval, with more than half of the total ballots not meeting the requirement. Figure 3 and Figure 4 further provided a more detailed understanding of the changing rate of public engagement on the topic of traffic calming from 2015 to 2023.
+
+It is also revealed that for the case of traffic calming, the average ballot response rate that did not meet the requirement (depicted in Figure 4) is lower than the average ballot return rate that met the requirement (depicted in Figure 3). This implies that, on average, there was a higher level of responsiveness meeting the requirement among the ballots for traffic calming that were returned, compared to those that did not meet the requirement. The difference in these average rates may indicate varying degrees of support or engagement with the topic of traffic calming among the respondents in the poll data.
+
+The observed correlations between high poll rates for Front Yard Parking and public support may be influenced by factors such as community preferences, feasibility of implementation, or other benefits. To fully understand these correlations, further investigation needs to be conducted in the future into the demographics, socio-economic factors, and local context. The findings could be significant for city planning and policymaking, as they emphasize the importance of aligning regulatory decisions with community engagements. Hopefully the future urban plannings and policy makings will all prioritize community preferences and satisfaction. 
+{{< pagebreak >}}
+## References
+
+Data, Toronto Open. 2023. About Polls conducted by the City.https://open.toronto.ca/dataset/polls-conducted-by-the-city/
+
+Ostad-Ali-Askari，2021.The Role of Public Participation in Promoting UrbanPlanning https://www.researchgate.net/publication/351714293_The_Role_of_Public_Participation_
+in_Promoting_Urban_Planning 
+
+Toronto city government. PW3.7-Polling for Front Yard Parking—Staff Report, https://www.toronto.ca/legdocs/mmis/2011/pw/bgrd/backgroundfile-37201.pdf.
+
+Toronto city government. Polls Regarding Changes in a Neighborhood. https://www.toronto.ca/city-government/planning-development/polls-regarding-changes-in-a-neighbourhood/
+
+Butler, Peter. 2007. Polling and Public Opinion: A Canadian Perspective. Published by University of Toronto Press. P. 256. https://www.jstor.org/stable/10.3138/9781442685482
+
+
+
