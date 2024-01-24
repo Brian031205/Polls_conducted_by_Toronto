@@ -71,7 +71,6 @@ write_csv(
 )
 
 # save summarized poll data #
-
 write_csv(
   x = summarized_poll_data,
   file = "input/data/summarized_poll_data.csv"

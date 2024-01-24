@@ -53,8 +53,8 @@ simulated_data |>
 
 
 
-# check 4 applications in the data
-length(unique(simulated_data$application)) == 4 
+# check 4 applications in the data 
+length(unique(simulated_data$application)) == 4
 
 # check 2 answers in response rate met
 length(unique(simulated_data$response_rate_met)) == 2
