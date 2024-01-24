@@ -49,7 +49,7 @@ The study aims to offer insights into trends and preferences of public engagemen
 
 
 ## Data
-The data I used in this paper are obtained from the Open Data Toronto Portal, accessed through the library `opendatatoronto` [@rOpenDataToronto]. The dataset, which covers polls conducted by the City from 2015, was first cleaned before analyzing. The open-source statistical programming language R [@r], using functionalities from `tidyverse` [@rTidyverse], `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], `tibble` [@rTibble], `janitor` [@rJanitor] and `knitr` [@rKnitr].(4)
+The data I used in this paper are obtained from the Open Data Toronto Portal, accessed through the library `opendatatoronto` [@rOpenDataToronto]. The dataset, which covers polls conducted by the city from 2015, was first cleaned before analyzing by the open-source statistical programming language R [@r], using functionalities from `tidyverse` [@rTidyverse], `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], `tibble` [@rTibble], `janitor` [@rJanitor] and `knitr` [@rKnitr].(4)
 
 ### Sample of Summarized Poll Data
 Table 1 suggests a summarized sample of poll data from the year 2015, showing the number of ballots in favor of various topics. For "Front Yard Parking," there are 5 out of 9 ballots in favor. Regarding "Traffic Calming," 2 out of the 9 ballots did not meet the requirement. "Appeal-Front Yard Parking" received 1 ballot in favor. "Boulevard Café" has 1 ballot in favor. The table provides a special overview of the preferences and responses for these specific topics during the 2015 poll.
