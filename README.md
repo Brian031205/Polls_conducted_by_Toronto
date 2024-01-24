@@ -1,5 +1,5 @@
 
-# Do More Subdivisions in Wards Increase Voter Turnout? An Analysis of the 2022 Toronto Municipal Election
+# Exploring Public Engagement and Preferences: An Analysis of City Polls in Toronto (2015-2023)
 ## Overview of Paper
 
 This paper investigates the dynamics of public engagement in Toronto through annual polls conducted by the City Clerk's Office from 2015 to 2023.
